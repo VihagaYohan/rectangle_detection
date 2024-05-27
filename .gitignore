@@ -72,3 +72,7 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+android/app/release/app-release.apk
+example/app-release.apk
+example/app-release.apk
+android/app/release/app-release.apk

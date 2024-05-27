@@ -6,6 +6,8 @@ import {
   Button,
   Text,
   Dimensions,
+  Modal,
+  Image,
 } from 'react-native';
 import Scanner, {RectangleOverlay} from 'react-native-rectangle-scanner';
 
@@ -14,6 +16,8 @@ const {height, width} = Dimensions.get('window');
 const Test3 = () => {
   const [scannedImage, setScannedImage] = useState();
   const [detected, setDetected] = useState();
+  const [visible, setVisible] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
   const camera = useRef();
   const previewHeight = useRef(1);
   const previewWidth = useRef(1);
@@ -57,6 +61,8 @@ const Test3 = () => {
         onPictureProcessed={result => {
           console.log('processed result');
           console.log(result);
+          setImageUrl(result.croppedImage);
+          setVisible(true);
         }}
         onPictureTaken={() => {}}
         onRectangleDetected={result => {
@@ -89,6 +95,22 @@ const Test3 = () => {
           }}
         />
       </View>
+
+      <Modal visible={visible} animationType="slide">
+        <View>
+          <Image
+            source={{uri: imageUrl}}
+            style={{
+              width: 200,
+              height: 200,
+              borderWidth: 1,
+              borderColor: 'red',
+            }}
+          />
+
+          <Button title="Close" onPress={() => setVisible(false)} />
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
